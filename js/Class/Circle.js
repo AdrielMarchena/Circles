@@ -1,4 +1,5 @@
-const { detectColision,warpMode } = require('../globalConfigs');
+const { detectColision,warpMode,colorArray } = require('../globalConfigs');
+const { randomMe } = require('../utils/randomMe');
 const { ctx,canvas } = require('../canvas/canvasSetup');
 const { mouseTrack, mouse } = require('../events/mouseTrack');
 
@@ -14,6 +15,7 @@ module.exports = class Circle{
         this.color = color;
         this.maxRadius = maxRadius;
         this.minRadius = radius;
+        this.nextColor = color;
     }
     draw(){
 
@@ -26,21 +28,27 @@ module.exports = class Circle{
 
     }
     update(){
+         
         //Colisions
         if(detectColision){
-            if(this.x + this.radius > canvas.width || this.x - this.radius < 0)
+            if(this.x + this.radius > canvas.width || this.x - this.radius < 0){
                 this.dx = -this.dx;
-            if(this.y + this.radius > canvas.height || this.y - this.radius < 0)
+                this.color = colorArray[Math.floor(randomMe(0,colorArray.length))];
+            }
+                
+            if(this.y + this.radius > canvas.height || this.y - this.radius < 0){
                 this.dy = -this.dy;
+                this.color = colorArray[Math.floor(randomMe(0,colorArray.length))];
+            }
+                
         }
-        
         //Make balls warp in middle if they pass to much of the screen
         if(warpMode){
-            if(this.x + this.radius-10 > canvas.width || this.x - this.radius+10 < 0){
+            if(this.x + this.radius-1 > canvas.width || this.x - this.radius+1 < 0){
                 this.x = innerWidth/2;
                 this.y = innerHeight/2;
             }   
-            if(this.y + this.radius-10 > canvas.height || this.y - this.radius+10 < 0){
+            if(this.y + this.radius-1 > canvas.height || this.y - this.radius+1 < 0){
                 this.x = innerWidth/2;
                 this.y = innerHeight/2;
             }

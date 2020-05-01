@@ -33,10 +33,10 @@ function createBalls(){
     for(let i=0;i<ballsNumber;i++){
 
         let radius = randomMe(2,10);
-        let x = randomMe(0,canvas.width);
-        let y = randomMe(0,canvas.height);
-        let dx = randomMe(2,2);
-        let dy = randomMe(2,2);
+        let x = randomMe(0+radius,canvas.width-radius*2);
+        let y = randomMe(0+radius,canvas.height-radius*2);
+        let dx = randomMe(-1,1);
+        let dy = randomMe(-1,1);
         let color = colorArray[Math.floor(randomMe(0,colorArray.length))];
         let maxRadius = randomMe(15,40);
 
